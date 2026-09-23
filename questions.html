@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Assessment | Vigilant360</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #17191b;
+}
+
+header {
+    background: white;
+    padding: 18px 7%;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+    width: 210px;
+    max-width: 65%;
+}
+
+.container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 22px;
+}
+
+.top {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.top small {
+    color: #ef7908;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.top h1 {
+    margin: 12px 0;
+    font-size: 32px;
+}
+
+.top p {
+    color: #656b73;
+}
+
+.progress-container {
+    background: #e1e4e8;
+    height: 8px;
+    border-radius: 10px;
+    margin: 25px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 5%;
+    background: #ef7908;
+    transition: width 0.3s ease;
+}
+
+.question-card {
+    background: white;
+    border-radius: 14px;
+    padding: 35px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+}
+
+.category {
+    color: #ef7908;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.question-number {
+    color: #656b73;
+    font-size: 14px;
+    margin: 12px 0;
+}
+
+.question-text {
+    font-size: 23px;
+    line-height: 1.4;
+    font-weight: bold;
+    margin-bottom: 28px;
+}
+
+.answers {
+    display: grid;
+    gap: 12px;
+}
+
+.answer {
+    display: block;
+    border: 1px solid #d8dde3;
+    padding: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.answer:hover {
+    border-color: #ef7908;
+    background: #fff8f0;
+}
+
+.answer input {
+    margin-right: 12px;
+    accent-color: #ef7908;
+}
+
+.answer.selected {
+    border-color: #ef7908;
+    background: #fff3e6;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 28px;
+}
+
+button {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-button {
+    background: #e5e7eb;
+    color: #333;
+}
+
+.next-button,
+.submit-button {
+    background: #ef7908;
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.notice {
+    text-align: center;
+    font-size: 13px;
+    color: #656b73;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .question-card {
+        padding: 24px;
+    }
+
+    .question-text {
+        font-size: 20px;
+    }
+
+    .navigation button {
+        flex: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png" alt="Vigilant360 Logo" class="logo">
+</header>
+
+<main class="container">
+
+    <div class="top">
+        <small>VIGILANT360 BUSINESS ASSESSMENT</small>
+        <h1>AI Readiness & Opportunity</h1>
+        <p>Answer each question based on your organization.</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="assessmentForm">
+
+        <div class="question-card">
+
+            <div class="category" id="category"></div>
+
+            <div class="question-number" id="questionNumber"></div>
+
+            <div class="question-text" id="questionText"></div>
+
+            <div class="answers" id="answers"></div>
+
+            <div class="navigation">
+
+                <button
+                    type="button"
+                    class="back-button"
+                    id="backButton"
+                    onclick="previousQuestion()">
+                    ← Back
+                </button>
+
+                <button
+                    type="button"
+                    class="next-button"
+                    id="nextButton"
+                    onclick="nextQuestion()">
+                    Next →
+                </button>
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                    id="submitButton"
+                    style="display:none;">
+                    Submit Assessment
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="notice">
+        🔒 Your answers are handled securely. Results will be delivered by email.
+    </div>
+
+</main>
+
+<script>
+
+const questions = [
+
+{
+    category: "Strategy & Leadership",
+    weight: 6,
+    text: "How clearly is AI connected to your organization's business priorities?",
+    options: [
+        "0 - Not considered",
+        "1 - Initial discussions",
+        "2 - Some priorities identified",
+        "3 - Clear alignment",
+        "4 - AI incorporated into strategy"
+    ]
+},
+
+{
+    category: "Strategy & Leadership",
+    weight: 5,
+    text: "What level of executive sponsorship exists for AI initiatives?",
+    options: [
+        "0 - None",
+        "1 - Individual interest",
+        "2 - Some leadership support",
+        "3 - Executive sponsor identified",
+        "4 - Active executive governance"
+    ]
+},
+
+{
+    category: "Strategy & Leadership",
+    weight: 5,
+    text: "Has your organization established measurable outcomes for AI initiatives (cost, productivity, revenue, customer experience, risk, etc.)?",
+    options: [
+        "0 - No",
+        "1 - Discussed informally",
+        "2 - Some measures identified",
+        "3 - KPIs defined",
+        "4 - KPIs systematically tracked"
+    ]
+},
+
+{
+    category: "Strategy & Leadership",
+    weight: 4,
+    text: "Is funding available for AI discovery, pilots and implementation?",
+    options: [
+        "0 - None",
+        "1 - Unknown",
+        "2 - Case-by-case",
+        "3 - Budget available",
+        "4 - Dedicated AI investment"
+    ]
+},
+
+{
+    category: "AI Opportunity",
+    weight: 4,
+    text: "How much employee time is spent searching for information across documents, emails, knowledge bases or business systems?",
+    options: [
+        "0 - Very little",
+        "1 - Low",
+        "2 - Moderate",
+        "3 - High",
+        "4 - Very high"
+    ]
+},
+
+{
+    category: "AI Opportunity",
+    weight: 4,
+    text: "How many business processes involve repetitive manual activities such as data entry, validation, reconciliation or document processing?",
+    options: [
+        "0 - Very few",
+        "1 - Few",
+        "2 - Several",
+        "3 - Many",
+        "4 - Extensive"
+    ]
+},
+
+{
+    category: "AI Opportunity",
+    weight: 4,
+    text: "How frequently do employees make decisions that require reviewing or summarizing large amounts of information?",
+    options: [
+        "0 - Rarely",
+        "1 - Occasionally",
+        "2 - Regularly",
+        "3 - Frequently",
+        "4 - Core part of operations"
+    ]
+},
+
+{
+    category: "AI Opportunity",
+    weight: 4,
+    text: "How much unstructured content does the organization process, such as documents, PDFs, emails, images, contracts or tickets?",
+    options: [
+        "0 - Very little",
+        "1 - Low",
+        "2 - Moderate",
+        "3 - High",
+        "4 - Very high"
+    ]
+},
+
+{
+    category: "AI Opportunity",
+    weight: 4,
+    text: "How much opportunity exists to improve customer or employee interactions through assistants, recommendations, self-service or automated support?",
+    options: [
+        "0 - None identified",
+        "1 - Limited",
+        "2 - Some",
+        "3 - Significant",
+        "4 - Very significant"
+    ]
+},
+
+{
+    category: "Data Readiness",
+    weight: 5,
+    text: "Is the data required for business operations available digitally and accessible?",
+    options: [
+        "0 - Mostly unavailable",
+        "1 - Highly fragmented",
+        "2 - Partially accessible",
+        "3 - Mostly accessible",
+        "4 - Easily accessible and governed"
+    ]
+},
+
+{
+    category: "Data Readiness",
+    weight: 5,
+    text: "How would you rate the quality, completeness and consistency of your business data?",
+    options: [
+        "0 - Poor / unknown",
+        "1 - Significant issues",
+        "2 - Mixed",
+        "3 - Generally reliable",
+        "4 - High quality and monitored"
+    ]
+},
+
+{
+    category: "Data Readiness",
+    weight: 5,
+    text: "How integrated are your major enterprise systems and data sources?",
+    options: [
+        "0 - Highly siloed",
+        "1 - Mostly siloed",
+        "2 - Some integration",
+        "3 - Well integrated",
+        "4 - Enterprise-wide integration / API"
+    ]
+},
+
+{
+    category: "Data Readiness",
+    weight: 5,
+    text: "Does your organization have defined data ownership, classification, retention and governance practices?",
+    options: [
+        "0 - None",
+        "1 - Informal",
+        "2 - Partially defined",
+        "3 - Established",
+        "4 - Mature and monitored"
+    ]
+},
+
+{
+    category: "Technology & Integration",
+    weight: 5,
+    text: "Does your technology environment support cloud services, APIs and integration with modern AI platforms?",
+    options: [
+        "0 - Very limited",
+        "1 - Limited",
+        "2 - Mixed",
+        "3 - Mostly ready",
+        "4 - Modern / cloud / API-enabled"
+    ]
+},
+
+{
+    category: "Technology & Integration",
+    weight: 5,
+    text: "Does the organization currently use enterprise platforms that provide AI capabilities?",
+    options: [
+        "0 - Unknown / none",
+        "1 - Limited",
+        "2 - Some platforms",
+        "3 - Multiple AI-capable platforms",
+        "4 - AI capabilities already enabled"
+    ]
+},
+
+{
+    category: "Technology & Integration",
+    weight: 5,
+    text: "Does IT have the ability to securely deploy, integrate, monitor and support new AI solutions?",
+    options: [
+        "0 - No",
+        "1 - Limited",
+        "2 - Developing",
+        "3 - Established",
+        "4 - Mature"
+    ]
+},
+
+{
+    category: "Governance & Security",
+    weight: 5,
+    text: "Are policies established for privacy, security and appropriate use of organizational data with AI?",
+    options: [
+        "0 - None",
+        "1 - Discussions only",
+        "2 - Draft / partial",
+        "3 - Established",
+        "4 - Enforced and monitored"
+    ]
+},
+
+{
+    category: "Governance & Security",
+    weight: 5,
+    text: "Does your organization have a process for AI governance, including approvals, human oversight, risk and compliance?",
+    options: [
+        "0 - None",
+        "1 - Informal",
+        "2 - Developing",
+        "3 - Established",
+        "4 - Mature governance framework"
+    ]
+},
+
+{
+    category: "Governance & Security",
+    weight: 5,
+    text: "Can your organization control and audit who can access sensitive information used by AI systems?",
+    options: [
+        "0 - No / unknown",
+        "1 - Limited",
+        "2 - Partial",
+        "3 - Strong controls",
+        "4 - Comprehensive and continuously monitored"
+    ]
+},
+
+{
+    category: "People & Adoption",
+    weight: 10,
+    text: "How prepared is the workforce to adopt AI, considering AI awareness, skills, training and openness to process change?",
+    options: [
+        "0 - Not prepared",
+        "1 - Low awareness",
+        "2 - Developing",
+        "3 - Generally prepared",
+        "4 - Strong AI skills / adoption culture"
+    ]
+}
+
+];
+
+let currentQuestion = 0;
+let responses = new Array(questions.length).fill(null);
+
+function displayQuestion() {
+
+    const question = questions[currentQuestion];
+
+    document.getElementById("category").textContent =
+        question.category;
+
+    document.getElementById("questionNumber").textContent =
+        "Question " + (currentQuestion + 1) + " of " + questions.length;
+
+    document.getElementById("questionText").textContent =
+        question.text;
+
+    document.getElementById("progressBar").style.width =
+        ((currentQuestion + 1) / questions.length * 100) + "%";
+
+    const answersContainer = document.getElementById("answers");
+
+    answersContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+
+        const label = document.createElement("label");
+
+        label.className = "answer";
+
+        label.innerHTML = `
+            <input type="radio"
+                   name="answer"
+                   value="${index}"
+                   ${responses[currentQuestion] === index ? "checked" : ""}>
+            ${option}
+        `;
+
+        const radio = label.querySelector("input");
+
+        radio.addEventListener("change", function() {
+            responses[currentQuestion] = Number(this.value);
+        });
+
+        answersContainer.appendChild(label);
+
+    });
+
+    document.getElementById("backButton").disabled =
+        currentQuestion === 0;
+
+    document.getElementById("nextButton").style.display =
+        currentQuestion === questions.length - 1 ? "none" : "block";
+
+    document.getElementById("submitButton").style.display =
+        currentQuestion === questions.length - 1 ? "block" : "none";
+
+}
+
+function nextQuestion() {
+
+    if (responses[currentQuestion] === null) {
+        alert("Please select an answer before continuing.");
+        return;
+    }
+
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        displayQuestion();
+    }
+
+}
+
+function previousQuestion() {
+
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        displayQuestion();
+    }
+
+}
+
+document.getElementById("assessmentForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (responses[currentQuestion] === null) {
+        alert("Please select an answer before submitting.");
+        return;
+    }
+
+    if (responses.some(answer => answer === null)) {
+        alert("Please complete all 20 questions.");
+        return;
+    }
+
+    sessionStorage.setItem(
+        "assessmentResponses",
+        JSON.stringify(responses)
+    );
+
+    alert(
+        "Thank you! Your assessment has been submitted for processing. Results will be delivered by email."
+    );
+
+    // Temporary local prototype behavior.
+    // Secure backend submission will be added later.
+    window.location.href = "index.html";
+
+});
+
+displayQuestion();
+
+</script>
+
+</body>
+</html>

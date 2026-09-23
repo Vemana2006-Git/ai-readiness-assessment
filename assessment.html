@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Organization Details | Vigilant360</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            color: #17191b;
+        }
+
+        header {
+            background: white;
+            padding: 18px 7%;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            width: 210px;
+            max-width: 65%;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 45px auto;
+            padding: 0 22px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading small {
+            color: #ef7908;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .heading h1 {
+            font-size: 34px;
+            margin: 14px 0;
+        }
+
+        .heading p {
+            color: #656b73;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d5d9df;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ef7908;
+            box-shadow: 0 0 0 3px rgba(239,121,8,0.12);
+        }
+
+        .required {
+            color: #ef7908;
+        }
+
+        .privacy {
+            background: #fff7ed;
+            border-left: 4px solid #ef7908;
+            padding: 15px;
+            margin: 25px 0;
+            font-size: 13px;
+            color: #5d4a38;
+            line-height: 1.6;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #ef7908;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d96500;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #656b73;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .form-card {
+                padding: 24px;
+            }
+
+            .heading h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png" alt="Vigilant360 Logo" class="logo">
+</header>
+
+<main class="container">
+
+    <div class="heading">
+        <small>Step 1 of 2</small>
+
+        <h1>Tell Us About Your Organization</h1>
+
+        <p>
+            Please provide a few details before starting
+            your AI Readiness & Opportunity Assessment.
+        </p>
+    </div>
+
+    <form class="form-card" id="organizationForm">
+
+        <div class="form-group">
+            <label>
+                Organization Name <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="organizationName"
+                required
+                placeholder="Enter organization name">
+        </div>
+
+        <div class="form-group">
+            <label>
+                Industry <span class="required">*</span>
+            </label>
+
+            <select id="industry" required>
+                <option value="">Select industry</option>
+                <option>Technology</option>
+                <option>Healthcare</option>
+                <option>Financial Services</option>
+                <option>Manufacturing</option>
+                <option>Retail</option>
+                <option>Education</option>
+                <option>Government</option>
+                <option>Professional Services</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                Organization Size <span class="required">*</span>
+            </label>
+
+            <select id="organizationSize" required>
+                <option value="">Select organization size</option>
+                <option>1–50 employees</option>
+                <option>51–250 employees</option>
+                <option>251–500 employees</option>
+                <option>501–1,000 employees</option>
+                <option>1,001–5,000 employees</option>
+                <option>5,000+ employees</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                Enterprise Platforms
+            </label>
+
+            <input
+                type="text"
+                id="platforms"
+                placeholder="e.g. Microsoft 365, Oracle, SAP">
+        </div>
+
+        <div class="form-group">
+            <label>
+                Business Functions
+            </label>
+
+            <input
+                type="text"
+                id="businessFunctions"
+                placeholder="e.g. Finance, HR, Operations">
+        </div>
+
+        <div class="form-group">
+            <label>
+                Contact Name <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="contactName"
+                required
+                placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+            <label>
+                Contact Email <span class="required">*</span>
+            </label>
+
+            <input
+                type="email"
+                id="contactEmail"
+                required
+                placeholder="name@company.com">
+        </div>
+
+        <div class="privacy">
+            🔒 <strong>Privacy Notice:</strong>
+            Your information will be used to process
+            your assessment. Results will be delivered
+            by email.
+        </div>
+
+        <button type="submit">
+            Continue to Assessment →
+        </button>
+
+        <a href="index.html" class="back">
+            ← Back to Home
+        </a>
+
+    </form>
+
+</main>
+
+<script>
+    document.getElementById("organizationForm")
+        .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const organizationData = {
+            organizationName:
+                document.getElementById("organizationName").value,
+
+            industry:
+                document.getElementById("industry").value,
+
+            organizationSize:
+                document.getElementById("organizationSize").value,
+
+            platforms:
+                document.getElementById("platforms").value,
+
+            businessFunctions:
+                document.getElementById("businessFunctions").value,
+
+            contactName:
+                document.getElementById("contactName").value,
+
+            contactEmail:
+                document.getElementById("contactEmail").value
+        };
+
+        sessionStorage.setItem(
+            "organizationData",
+            JSON.stringify(organizationData)
+        );
+
+        alert("Organization details saved for this browser session.");
+
+        window.location.href = "questions.html";
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vigilant360 | AI Readiness Assessment</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f8fa;
+            color: #17191b;
+        }
+
+        /* HEADER */
+        header {
+            background: #ffffff;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            width: 230px;
+            max-width: 65%;
+            height: auto;
+        }
+
+        .header-label {
+            font-size: 13px;
+            color: #555b63;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        /* HERO */
+        .hero {
+            background: #17191b;
+            color: white;
+            padding: 85px 8% 95px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            background: #ef7908;
+            opacity: 0.10;
+            border-radius: 50%;
+            top: -220px;
+            right: -100px;
+        }
+
+        .eyebrow {
+            color: #f58a20;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 58px);
+            line-height: 1.12;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .hero h1 span {
+            color: #f58213;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 25px auto 0;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #d2d5d8;
+        }
+
+        /* BUTTON */
+        .start-button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 16px 34px;
+            background: #ef7908;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 16px;
+            border: 2px solid #ef7908;
+            transition: 0.25s ease;
+        }
+
+        .start-button:hover {
+            background: #d96500;
+            border-color: #d96500;
+            transform: translateY(-2px);
+        }
+
+        .privacy-note {
+            margin-top: 18px;
+            color: #b9bec4;
+            font-size: 13px;
+        }
+
+        /* FEATURES */
+        .features {
+            max-width: 1100px;
+            margin: -35px auto 0;
+            padding: 0 25px;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 28px 22px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            text-align: center;
+            border-top: 3px solid #ef7908;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 14px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #656b73;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* CONTENT */
+        .content {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 25px;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .content > p {
+            color: #606770;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .dimensions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .dimension {
+            padding: 20px 12px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dimension span {
+            display: block;
+            color: #ef7908;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #17191b;
+            color: #aeb3b9;
+            text-align: center;
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+
+            .header-label {
+                display: none;
+            }
+
+            .hero {
+                padding: 60px 6% 80px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                margin-top: 25px;
+            }
+
+            .content {
+                margin: 55px auto;
+            }
+
+            .dimensions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .dimensions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <img src="logo.png" alt="Vigilant360 Logo" class="logo">
+
+        <div class="header-label">
+            AI READINESS & OPPORTUNITY
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+
+        <div class="eyebrow">
+            Vigilant360 Business Assessment
+        </div>
+
+        <h1>
+            Is Your Business <span>Ready for AI?</span>
+        </h1>
+
+        <p>
+            Discover your organization's AI readiness and
+            identify opportunities for intelligent transformation.
+            Gain insights into your current capabilities and
+            areas for improvement.
+        </p>
+
+        <a href="assessment.html" class="start-button">
+            Start Your Assessment →
+        </a>
+
+        
+
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>AI Readiness</h3>
+            <p>
+                Understand your organization's preparedness
+                for AI adoption.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💡</div>
+            <h3>AI Opportunities</h3>
+            <p>
+                Identify potential areas where AI can
+                create business value.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔐</div>
+            <h3>Secure Assessment</h3>
+            <p>
+                Complete your assessment with a focus
+                on privacy and data protection.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- CONTENT -->
+    <section class="content">
+
+        <h2>Explore Your AI Readiness</h2>
+
+        <p>
+            This assessment evaluates key dimensions of your
+            organization's readiness for AI adoption and
+            highlights potential areas of opportunity.
+        </p>
+
+        <div class="dimensions">
+
+            <div class="dimension">
+                <span>01</span>
+                Strategy & Leadership
+            </div>
+
+            <div class="dimension">
+                <span>02</span>
+                Data Readiness
+            </div>
+
+            <div class="dimension">
+                <span>03</span>
+                Technology & Integration
+            </div>
+
+            <div class="dimension">
+                <span>04</span>
+                Governance & Security
+            </div>
+
+            <div class="dimension">
+                <span>05</span>
+                People & Adoption
+            </div>
+
+            <div class="dimension">
+                <span>06</span>
+                AI Opportunities
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 Vigilant360. All rights reserved.
+        <br>
+        AI Readiness & Opportunity Assessment
+    </footer>
+
+</body>
+</html>
